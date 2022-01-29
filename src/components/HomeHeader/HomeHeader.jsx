@@ -11,7 +11,7 @@ import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import {useTheme, createTheme, makeStyles} from '@mui/material/styles';
-import {CardMedia, IconButton, ImageList, Link, Paper} from "@mui/material";
+import {CardMedia, Drawer, IconButton, ImageList, Link, List,ListItem, Paper} from "@mui/material";
 import {styled, alpha} from '@mui/material/styles';
 import Badge from '@mui/material/Badge';
 
@@ -36,6 +36,11 @@ import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 //         },
 //     },
 // });
+
+// Drawer
+
+
+
 
 const Search = styled('div')(({theme}) => ({
     position: 'relative',
@@ -120,14 +125,14 @@ const StyledInputBase = styled(InputBase)(({theme}) => ({
 
 
 const HomeHeader = () => {
-    const style = {
-        headerBackground: {
-            backgroundImage: `url(${Image})`,
-            backgroundRepeat: "no-repeat",
-            backgroundPosition: "center",
-            backgroundSize: "100% 20rem",
-        }
-    };
+    // const style = {
+    //     headerBackground: {
+    //         backgroundImage: `url(${Image})`,
+    //         backgroundRepeat: "no-repeat",
+    //         backgroundPosition: "center",
+    //         backgroundSize: "100% 20rem",
+    //     }
+    // };
 
     const theme = useTheme();
     // const classes = styles(theme);
@@ -136,6 +141,21 @@ const HomeHeader = () => {
     const handleChange = (newValue) => {
         setValue(newValue);
     };
+
+    //Drawer
+    const [state,setState] = React.useState('false');
+    const toggleDrawer = (open) => (event) =>{
+        setState(open)
+    };
+    const List = ()=>(
+        <Box sx={{width: "30rem", height:"50rem"}}>
+            <List>
+                <ListItem>
+                    salam
+                </ListItem>
+            </List>
+        </Box>
+    )
     return (
         <>
             <AppBar position="static">
@@ -303,6 +323,7 @@ const HomeHeader = () => {
                                 display: "flex", alignItems: "center", fontSize: "1.5rem",
                                 [theme.breakpoints.down('sm')]: {
                                     fontSize: '0.7rem',
+                                    marginTop:"0.8rem"
                                 },
                                 [theme.breakpoints.between('sm', 'md')]: {
                                     fontSize: "1rem",
@@ -372,12 +393,11 @@ const HomeHeader = () => {
                                 </Button>
                             </Box>
 
-                            <Box sx={{display: 'flex', alignItems: "center"}}>
+                            <Box sx={{display: 'flex', alignItems: "center",marginRight: "1rem", }}>
                                 <Typography sx={{
-                                    fontSize: "2rem", marginRight: "1rem",
+                                    fontSize: "2rem",
                                     [theme.breakpoints.down('sm')]: {
                                         fontSize: '0.7rem',
-                                        marginRight: "0.5rem"
                                     },
                                     [theme.breakpoints.between('sm', 'md')]: {
                                         fontSize: "1rem",
@@ -386,10 +406,8 @@ const HomeHeader = () => {
                                         fontSize: "1.3rem",
                                     },
                                 }}>
-                                <span style={{display: {xs: "none", sm: "flex"}}}>
                                     خرید از
-                                </span>
-                                    <span style={{fontWeight:"600"}}>هایپراستار صبا</span>
+                                    هایپراستار صبا
                                 </Typography>
 
                                 <Box sx={{
@@ -436,7 +454,8 @@ const HomeHeader = () => {
                                 inputProps={{'aria-label': 'search'}}
                             />
                         </Search>
-                        <Button variant="contained" sx={{
+                        <Button  onClick={toggleDrawer(true)}
+                            variant="contained" sx={{
                             display: {xs: "none", sm: "flex"},
                             width: "10rem",
                             height: "3rem",
@@ -458,6 +477,13 @@ const HomeHeader = () => {
                             دسته بندی ها
                             <GridViewOutlined sx={{fontSize:"1rem"}}/>
                         </Button>
+                        <Drawer
+                            anchor={'top'}
+                            open={state}
+                            onClose={toggleDrawer( false)}
+                        >
+                            {List()}
+                        </Drawer>
                     </Box>
 
                 </Toolbar>
